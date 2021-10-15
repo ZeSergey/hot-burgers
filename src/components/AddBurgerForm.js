@@ -11,7 +11,7 @@ class AddBurgerForm extends React.Component {
     event.preventDefault();
     const burger = {
       name: this.nameRef.current.value,
-      price: parseFloat(this.priceRef.current.value),
+      price: parseFloat(this.priceRef.current.value) || 0,
       status: this.statusRef.current.value,
       desc: this.descRef.current.value,
       image: this.imageRef.current.value,
@@ -22,7 +22,7 @@ class AddBurgerForm extends React.Component {
 
   render() {
     return (
-      <form className="berger-edit" onSubmit={this.createBurger}>
+      <form className="burger-edit" onSubmit={this.createBurger}>
         <input
           ref={this.nameRef}
           name="name"
