@@ -1,4 +1,5 @@
 import React from 'react';
+import Shipment from './Shipment';
 
 const Order = (props) => {
   const renderOrtder = (key) => {
@@ -39,11 +40,13 @@ const Order = (props) => {
     <div className="order-wrap">
       <h2>Ваш заказ</h2>
       <ul className="order">{orderIds.map(renderOrtder)}</ul>
-      <div className="total">
-        <div className="total_wrap">
-          <div className="total_wrap-final">Итого: {total} ₽</div>
+      {total > 0 ? (
+        <Shipment total={total} />
+      ) : (
+        <div className="nothingSelected">
+          Выберете блюда и добавьте к заказу
         </div>
-      </div>
+      )}
     </div>
   );
 };
