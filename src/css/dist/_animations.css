@@ -1,0 +1,23 @@
+/*
+  Анимация:
+  enter
+  exit
+*/
+.order-enter {
+  transition: 0.5s;
+  transform: translateX(-120%);
+  max-height: 0;
+}
+.order-enter.order-enter-active {
+  transform: translateX(0);
+  max-height: 60;
+  padding: 2rem 0 !important;
+}
+.order-exit {
+  transition: 0.5s;
+  transform: translateX(0);
+}
+.order-exit.order-exit-active {
+  transform: translateX(120%);
+  padding: 0;
+}

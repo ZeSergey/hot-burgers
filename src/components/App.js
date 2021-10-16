@@ -15,10 +15,20 @@ class App extends React.Component {
 
   componentDidMount() {
     const { params } = this.props.match;
+    const localStorageRef = localStorage.getItem(params.restaurantId);
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) });
+    }
+
     this.ref = base.syncState(`${params.restaurantId}/burgers`, {
       context: this,
       state: 'burgers',
     });
+  }
+
+  componentDidUpdate() {
+    const { params } = this.props.match;
+    localStorage.setItem(params.restaurantId, JSON.stringify(this.state.order));
   }
 
   componentWillUnmount() {
@@ -32,6 +42,18 @@ class App extends React.Component {
     this.setState({ burgers });
   };
 
+  updateBurger = (key, updatedBurger) => {
+    const burgers = { ...this.state.burgers };
+    burgers[key] = updatedBurger;
+    this.setState({ burgers });
+  };
+
+  deleteBurger = (key) => {
+    const burgers = { ...this.state.burgers };
+    burgers[key] = null;
+    this.setState({ burgers });
+  };
+
   loadSampleBurgers = () => {
     this.setState({ burgers: sampleBurgers });
   };
@@ -39,6 +61,12 @@ class App extends React.Component {
   addToOrder = (key) => {
     const order = { ...this.state.order };
     order[key] = order[key] + 1 || 1;
+    this.setState({ order });
+  };
+
+  deleteFromOrder = (key) => {
+    const order = { ...this.state.order };
+    delete order[key];
     this.setState({ order });
   };
   render() {
@@ -57,10 +85,17 @@ class App extends React.Component {
             ))}
           </ul>
         </div>
-        <Order burgers={this.state.burgers} order={this.state.order} />
+        <Order
+          burgers={this.state.burgers}
+          order={this.state.order}
+          deleteFromOrder={this.deleteFromOrder}
+        />
         <MenuAdmin
           addBurger={this.addBurger}
           loadSampleBurgers={this.loadSampleBurgers}
+          burgers={this.state.burgers}
+          updateBurger={this.updateBurger}
+          deleteBurger={this.deleteBurger}
         />
       </div>
     );
