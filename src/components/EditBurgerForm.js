@@ -1,10 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const EditBurgerForm = (props) => {
   const handleChange = (event) => {
     const updatedBurger = {
       ...props.burger,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [event.currentTarget.name]:
+        event.currentTarget.name === 'price'
+          ? parseFloat(event.currentTarget.value) || 0
+          : event.currentTarget.value,
     };
     props.updateBurger(props.burgerKey, updatedBurger);
   };
@@ -44,6 +48,19 @@ const EditBurgerForm = (props) => {
       </button>
     </div>
   );
+};
+
+EditBurgerForm.propTypes = {
+  burger: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    desc: PropTypes.string,
+    status: PropTypes.string,
+  }),
+  index: PropTypes.string,
+  updateBurger: PropTypes.func,
+  deleteBurger: PropTypes.func,
 };
 
 export default EditBurgerForm;

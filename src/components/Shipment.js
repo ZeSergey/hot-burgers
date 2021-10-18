@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Shipment = (props) => {
   const { total } = props;
@@ -25,6 +26,10 @@ const Shipment = (props) => {
       </div>
     </div>
   );
+};
+
+Shipment.propTypes = {
+  tota: PropTypes.number,
 };
 
 export default Shipment;

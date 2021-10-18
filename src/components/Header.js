@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Header = (props) => (
   <header className="top">
@@ -10,8 +11,7 @@ const Header = (props) => (
         </div>
 
         <div className="header-divider"></div>
-        {/* <h1 className="font-effect-fire-animation">{props.title}</h1> */}
-        <h1 className="font-effect-fire-animation">Hot Burgers</h1>
+        <h1 className="font-effect-fire-animation">{props.title}</h1>
         <h3>
           <span>
             Быстрая доставка горячих
@@ -22,5 +22,9 @@ const Header = (props) => (
     </div>
   </header>
 );
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;
